@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">QuizApp</string>
+    <string name="new_game">New Game</string>
+    <string name="about">About</string>
+    <string name="welcome_to">WELCOME TO</string>
+    <string name="textview">TextView</string>
+    <string name="the_quiz">THE QUIZ!</string>
+</resources>
