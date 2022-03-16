@@ -3,6 +3,16 @@
     <string name="new_game">New Game</string>
     <string name="about">About</string>
     <string name="welcome_to">WELCOME TO</string>
-    <string name="textview">TextView</string>
-    <string name="the_quiz">THE QUIZ!</string>
+    <string name="less">Less</string>
+    <string name="greater">Greater</string>
+    <string name="equal">==</string>
+    <string name="correct">""</string>
+    <string name="question_2">Question 2</string>
+    <string name="question_1">Question 1</string>
+    <string name="the_quiz">The QUIZ!</string>
+    <string name="timer">99</string>
+    <string name="score">10/10</string>
+    <string name="timetv">TIME LEFT</string>
+    <string name="scoretv">SCORE</string>
+    <string name="seconds">seconds</string>
 </resources>
