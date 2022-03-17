@@ -30,7 +30,7 @@ class QuizActivity : AppCompatActivity() {
 
     private var correct = 0
     private var total = 0
-    private var secondsLeft = 10
+    private var secondsLeft = 50
 
     private var expression1 = 0
     private var expression2 = 0
@@ -182,23 +182,18 @@ class QuizActivity : AppCompatActivity() {
 
     private fun getAnswer(n1: Int, n2: Int, op: String): Int {
         var answer = 0
-        var num1 = n1
-        var num2 = n2
         when (op) {
             "+" -> {
-                answer = num1 + num2
+                answer = n1 + n2
             }
             "-" -> {
-                answer = num1 - num2
+                answer = n1 - n2
             }
             "*" -> {
-                answer = num1 * num2
+                answer = n1 * n2
             }
             "/" -> {
-                while (num1 % num2 != 0) {
-                    num2 = Random.nextInt(1, 21)
-                }
-                answer = num1 / num2
+                answer = n1 / n2
             }
         }
         return answer
@@ -209,15 +204,12 @@ class QuizActivity : AppCompatActivity() {
         var isTrue = false
         if (expression1 > expression2 && ans == 1) {
             isTrue = true
-            println("greater $expression1  + $expression2")
         } else
             if (expression1 < expression2 && ans == 2) {
                 isTrue = true
-                println("lesser $expression1  + $expression2")
             } else
                 if (expression1 == expression2 && ans == 3) {
                     isTrue = true
-                    println("equal $expression1 + $expression2")
                 }
 
         if (isTrue) {

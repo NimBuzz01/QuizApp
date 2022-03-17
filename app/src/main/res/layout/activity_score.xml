@@ -11,44 +11,92 @@
         android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="202dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="160dp"
         android:text="@string/congratulations"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/scoreTextF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="76dp"
-        android:text="@string/you_scored"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="72dp"
+        android:text="@string/your_score"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tv1"
-        app:layout_constraintTop_toBottomOf="@+id/tv1" />
+        app:layout_constraintBottom_toTopOf="@+id/correctTextF"
+        app:layout_constraintEnd_toStartOf="@+id/scoreF"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/correctTextF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:text="@string/correct_answers"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/correctF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/correctF" />
+
+    <TextView
+        android:id="@+id/incorrectTextF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="@string/incorrect_answers"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/correctTextF"
+        app:layout_constraintTop_toBottomOf="@+id/correctTextF" />
 
     <TextView
         android:id="@+id/scoreF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
-        android:text="@string/scoreF"
+        android:text="@string/scoreTextF"
         android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/scoreTextF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/scoreTextF" />
+
+    <TextView
+        android:id="@+id/correctF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="296dp"
+        android:text="@string/correctTextF"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/correctTextF" />
 
     <TextView
         android:id="@+id/incorrectF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="69dp"
-        android:layout_marginEnd="7dp"
-        android:text="@string/incorrectF"
+        android:layout_marginTop="7dp"
+        android:text="@string/incorrectTextF"
+        android:textAlignment="textStart"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/scoreF"
-        app:layout_constraintTop_toBottomOf="@+id/scoreF" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/correctF"
+        app:layout_constraintTop_toBottomOf="@+id/correctF" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

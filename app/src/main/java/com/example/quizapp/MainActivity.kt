@@ -1,16 +1,11 @@
 package com.example.quizapp
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
-import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 
 private lateinit var prefs: SharedPreferences
 
@@ -32,13 +27,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        aboutbtn.setOnClickListener(){
-            showAlertDialog(it)
+        aboutbtn.setOnClickListener {
+            showAlertDialog()
         }
 
     }
 
-    private fun showAlertDialog(view: View) {
+    private fun showAlertDialog() {
         MaterialAlertDialogBuilder(this)
             .setTitle("About Me")
             .setMessage("Student Name: Niamat Marjan\n" +
@@ -50,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                     "entirely my own. Any work from other authors is duly referenced " +
                     "and acknowledged.\n")
             .setPositiveButton("Back"
-            ) { dialog, which -> Toast.makeText(applicationContext,"...",Toast.LENGTH_LONG).show() }
+            ) { _, _ -> Toast.makeText(applicationContext,"...",Toast.LENGTH_LONG).show() }
             .show()
     }
 }
