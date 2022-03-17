@@ -57,6 +57,7 @@ class QuizActivity : AppCompatActivity() {
 
 
         nextQuestion()
+        //Button onClick Listeners
         greaterBtn.setOnClickListener {
             checkAnswer(1)
             nextQuestion()
@@ -101,6 +102,7 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
+    //Setting Questions
     private fun nextQuestion() {
         q1Value = 0
         q2Value = 0
@@ -108,95 +110,101 @@ class QuizActivity : AppCompatActivity() {
         val scoreTv = "$correct/$total"
         scoreQuiz.text = scoreTv
 
-        var random = Random.nextInt(1, 4)
-
-        val q1Array = generateQuestion(random)
+        val q1Array = generateQuestion()
         val q1Text = q1Array[0]
         q1Value = q1Array[1] as Int
 
-        val q2Array = generateQuestion(random)
+        val q2Array = generateQuestion()
         val q2Text = q2Array[0]
         q2Value = q2Array[1] as Int
 
-        question1.text = "$q1Text = $q1Value"
-        question2.text = "$q2Text = $q2Value"
+        question1.text = "$q1Text"
+        question2.text = "$q2Text"
 
     }
 
-    private fun generateQuestion(noOfTerms: Int): Array<Any> {
-        val num1 = (1..20).random()
-        var questionValue = num1
-        var questionText: String = num1.toString()
+    //Generate Random Question
+    private fun generateQuestion(): Array<Any> {
+        val initialNum = (1..20).random()
+        var questionValue = initialNum
+        var questionText: String = initialNum.toString()
+
+        val noOfTerms = Random.nextInt(1, 4)
         repeat(noOfTerms) {
-            var variableTerm = (1..20).random()
-            when ((0..3).random()) {
-                0 -> {                            // addition
-                    if (questionValue + variableTerm >= 100) {
-                        while (questionValue + variableTerm >= 100) {
-                            variableTerm = (1..20).random()
+            var nextNum = (1..20).random()
+            when ((1..4).random()) {
+                // Addition
+                1 -> {
+                    if (questionValue + nextNum >= 100) {
+                        while (questionValue + nextNum >= 100) {
+                            nextNum = (1..20).random()
                         }
                     }
                     questionText = if (questionText.length > 2) {
-                        "($questionText)+$variableTerm"
+                        "($questionText)+$nextNum"
                     } else {
-                        "$questionText+$variableTerm"
+                        "$questionText+$nextNum"
                     }
-                    questionValue += variableTerm
+                    questionValue += nextNum
                 }
-                1 -> {                     //subtraction
-                    if (questionValue - variableTerm >= 100) {
-                        while (questionValue - variableTerm >= 100) {
-                            variableTerm = (1..20).random()
+                //Subtraction
+                2 -> {
+                    if (questionValue - nextNum >= 100) {
+                        while (questionValue - nextNum >= 100) {
+                            nextNum = (1..20).random()
                         }
                     }
                     questionText = if (questionText.length > 2) {
-                        "($questionText)-$variableTerm"
+                        "($questionText)-$nextNum"
                     } else {
-                        "$questionText-$variableTerm"
+                        "$questionText-$nextNum"
                     }
-                    questionValue -= variableTerm
+                    questionValue -= nextNum
                 }
-                2 -> {                     //multiplication
-                    if (questionValue * variableTerm >= 100) {
-                        while (questionValue * variableTerm >= 100) {
-                            variableTerm = (1..20).random()
+                //Multiplication
+                3 -> {
+                    if (questionValue * nextNum >= 100) {
+                        while (questionValue * nextNum >= 100) {
+                            nextNum = (1..20).random()
                         }
                     }
                     questionText = if (questionText.length > 2) {
-                        "($questionText)*$variableTerm"
+                        "($questionText)*$nextNum"
                     } else {
-                        "$questionText*$variableTerm"
+                        "$questionText*$nextNum"
                     }
-                    questionValue *= variableTerm
+                    questionValue *= nextNum
                 }
-                3 -> {                     //division
-                    if (questionValue % variableTerm != 0) {
-                        while (questionValue % variableTerm != 0) {
-                            variableTerm = (1..20).random()
+                //Division
+                4 -> {
+                    if (questionValue % nextNum != 0) {
+                        while (questionValue % nextNum != 0) {
+                            nextNum = (1..20).random()
                         }
                     }
-                    if (variableTerm == 0) {
-                        while (variableTerm == 0) {
-                            variableTerm = (1..20).random()
+                    if (nextNum == 0) {
+                        while (nextNum == 0) {
+                            nextNum = (1..20).random()
                         }
                     }
-                    if (questionValue / variableTerm >= 100) {
-                        while (questionValue / variableTerm >= 100) {
-                            variableTerm = (1..20).random()
+                    if (questionValue / nextNum >= 100) {
+                        while (questionValue / nextNum >= 100) {
+                            nextNum = (1..20).random()
                         }
                     }
                     questionText = if (questionText.length > 2) {
-                        "($questionText)/$variableTerm"
+                        "($questionText)/$nextNum"
                     } else {
-                        "$questionText/$variableTerm"
+                        "$questionText/$nextNum"
                     }
-                    questionValue /= variableTerm
+                    questionValue /= nextNum
                 }
             }
         }
         return arrayOf(questionText, questionValue)
     }
 
+    //Compare The Questions and Assign Score
     private fun checkAnswer(ans: Int) {
         total += 1
         var isTrue = false
@@ -215,6 +223,7 @@ class QuizActivity : AppCompatActivity() {
             val scoreTv = "$correct/$total"
             scoreQuiz.text = scoreTv
             correctQuiz.text = "Correct!"
+            //Set Text Colour
             correctQuiz.setTextColor(Color.parseColor("#09ff00"))
         } else {
             val scoreTv = "$correct/$total"

@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         val aboutbtn = findViewById<Button>(R.id.aboutbtn)
 
         newbtn.setOnClickListener {
+            //Resetting Shared Preferences
             prefs.edit().remove("total").apply()
             prefs.edit().remove("correct").apply()
             prefs.edit().remove("secondsLeft").apply()
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Show Popup Window
     private fun showAlertDialog() {
         MaterialAlertDialogBuilder(this)
             .setTitle("About Me")

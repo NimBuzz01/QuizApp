@@ -26,12 +26,13 @@ class ScoreActivity : AppCompatActivity() {
         correctF = findViewById(R.id.correctF)
         incorrectF = findViewById(R.id.incorrectF)
 
+        //Setting Shared Preferences
         prefs = getSharedPreferences("saveData", MODE_PRIVATE)
         total = prefs.getInt("total", 0)
         correct = prefs.getInt("correct", correct)
         incorrect = total - correct
 
-
+        //Assigning to TextViews
         scoreF.text = "$correct/$total"
         correctF.text = "$correct"
         incorrectF.text = "$incorrect"
