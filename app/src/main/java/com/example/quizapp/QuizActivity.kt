@@ -32,8 +32,8 @@ class QuizActivity : AppCompatActivity() {
     private var total = 0
     private var secondsLeft = 50
 
-    private var expression1 = 0
-    private var expression2 = 0
+    private var q1Value = 0
+    private var q2Value = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,113 +102,111 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun nextQuestion() {
-        expression1 = 0
-        expression2 = 0
+        q1Value = 0
+        q2Value = 0
 
         val scoreTv = "$correct/$total"
         scoreQuiz.text = scoreTv
 
-        val term01Array = generateQuestion()
-        val term01String = term01Array[0]
-        expression1 = term01Array[1] as Int
+        var random = Random.nextInt(1, 4)
 
-        val term02Array = generateQuestion()
-        val term02String = term02Array[0]
-        expression2 = term02Array[1] as Int
+        val q1Array = generateQuestion(random)
+        val q1Text = q1Array[0]
+        q1Value = q1Array[1] as Int
 
-        question1.text = "$term01String = $expression1"
-        question2.text = "$term02String = $expression2"
+        val q2Array = generateQuestion(random)
+        val q2Text = q2Array[0]
+        q2Value = q2Array[1] as Int
+
+        question1.text = "$q1Text = $q1Value"
+        question2.text = "$q2Text = $q2Value"
 
     }
 
-    private fun generateQuestion(): Array<Any> {
-        var expression = ""
-        var expressionAnswer = 0
-
-        val op1: String = getRandomOP()
-        val op2: String = getRandomOP()
-        val op3: String = getRandomOP()
-
-        val num1: Int = Random.nextInt(1, 21)
-        val num2: Int = Random.nextInt(1, 21)
-        val num3: Int = Random.nextInt(1, 21)
-        val num4: Int = Random.nextInt(1, 21)
-
-
-        when (Random.nextInt(1, 4)) {
-            1 -> {
-                expression = "$num1 $op1 $num2"
-                expressionAnswer += getAnswer(num1, num2, op1)
-
-            }
-            2 -> {
-                expression = "($num1 $op1 $num2) $op2 $num3"
-                expressionAnswer += getAnswer(num1, num2, op1)
-                expressionAnswer += getAnswer(expressionAnswer, num3, op2)
-
-            }
-            3 -> {
-                expression = "(($num1 $op1 $num2) $op2 $num3) $op3 $num4"
-                expressionAnswer += getAnswer(num1, num2, op1)
-                expressionAnswer += getAnswer(expressionAnswer, num3, op2)
-                expressionAnswer += getAnswer(expressionAnswer, num4, op3)
-            }
-        }
-
-
-        return arrayOf(expression, expressionAnswer)
-    }
-
-    private fun getRandomOP(): String {
-        val op: Int = Random.nextInt(0, 4)
-        var operator = ""
-        if (op == 0) {
-            operator = "+"
-        } else {
-            if (op == 1) {
-                operator = "-"
-            } else {
-                if (op == 2) {
-                    operator = "*"
-                } else {
-                    if (op == 3) {
-                        operator = "/"
+    private fun generateQuestion(noOfTerms: Int): Array<Any> {
+        val num1 = (1..20).random()
+        var questionValue = num1
+        var questionText: String = num1.toString()
+        repeat(noOfTerms) {
+            var variableTerm = (1..20).random()
+            when ((0..3).random()) {
+                0 -> {                            // addition
+                    if (questionValue + variableTerm >= 100) {
+                        while (questionValue + variableTerm >= 100) {
+                            variableTerm = (1..20).random()
+                        }
                     }
+                    questionText = if (questionText.length > 2) {
+                        "($questionText)+$variableTerm"
+                    } else {
+                        "$questionText+$variableTerm"
+                    }
+                    questionValue += variableTerm
+                }
+                1 -> {                     //subtraction
+                    if (questionValue - variableTerm >= 100) {
+                        while (questionValue - variableTerm >= 100) {
+                            variableTerm = (1..20).random()
+                        }
+                    }
+                    questionText = if (questionText.length > 2) {
+                        "($questionText)-$variableTerm"
+                    } else {
+                        "$questionText-$variableTerm"
+                    }
+                    questionValue -= variableTerm
+                }
+                2 -> {                     //multiplication
+                    if (questionValue * variableTerm >= 100) {
+                        while (questionValue * variableTerm >= 100) {
+                            variableTerm = (1..20).random()
+                        }
+                    }
+                    questionText = if (questionText.length > 2) {
+                        "($questionText)*$variableTerm"
+                    } else {
+                        "$questionText*$variableTerm"
+                    }
+                    questionValue *= variableTerm
+                }
+                3 -> {                     //division
+                    if (questionValue % variableTerm != 0) {
+                        while (questionValue % variableTerm != 0) {
+                            variableTerm = (1..20).random()
+                        }
+                    }
+                    if (variableTerm == 0) {
+                        while (variableTerm == 0) {
+                            variableTerm = (1..20).random()
+                        }
+                    }
+                    if (questionValue / variableTerm >= 100) {
+                        while (questionValue / variableTerm >= 100) {
+                            variableTerm = (1..20).random()
+                        }
+                    }
+                    questionText = if (questionText.length > 2) {
+                        "($questionText)/$variableTerm"
+                    } else {
+                        "$questionText/$variableTerm"
+                    }
+                    questionValue /= variableTerm
                 }
             }
         }
-        return operator
-    }
-
-    private fun getAnswer(n1: Int, n2: Int, op: String): Int {
-        var answer = 0
-        when (op) {
-            "+" -> {
-                answer = n1 + n2
-            }
-            "-" -> {
-                answer = n1 - n2
-            }
-            "*" -> {
-                answer = n1 * n2
-            }
-            "/" -> {
-                answer = n1 / n2
-            }
-        }
-        return answer
+        return arrayOf(questionText, questionValue)
     }
 
     private fun checkAnswer(ans: Int) {
         total += 1
         var isTrue = false
-        if (expression1 > expression2 && ans == 1) {
+        if (q1Value > q2Value && ans == 1) {
             isTrue = true
         } else
-            if (expression1 < expression2 && ans == 2) {
+            if (q1Value < q2Value && ans == 2) {
                 isTrue = true
             } else
-                if (expression1 == expression2 && ans == 3) {
+                if (q1Value == q2Value && ans == 3) {
                     isTrue = true
                 }
 

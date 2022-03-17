@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         aboutbtn.setOnClickListener {
             showAlertDialog()
         }
-
     }
 
     private fun showAlertDialog() {
